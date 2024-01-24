@@ -9,8 +9,7 @@ export const createBrowserContext: () => Promise<playwright.BrowserContext> =
       ? await playwright.chromium.launch({
         args: chromium.args,
         executablePath: await chromium.executablePath(),
-        // @ts-ignore
-        headless: chromium.headless,
+        headless: true,
       })
       : await playwright.chromium.launch();
     return await browser.newContext();
