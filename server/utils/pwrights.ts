@@ -1,14 +1,15 @@
 import * as playwright from "playwright-core";
-import chromium from "chrome-aws-lambda";
+import chromium from "@sparticuz/chromium";
 
 export const createBrowserContext: () => Promise<playwright.BrowserContext> =
   async () => {
-    const isLambdaEnv = await chromium.executablePath;
+    const isLambdaEnv = await chromium.executablePath();
 
     const browser = isLambdaEnv
       ? await playwright.chromium.launch({
         args: chromium.args,
-        executablePath: await chromium.executablePath,
+        executablePath: await chromium.executablePath(),
+        // @ts-ignore
         headless: chromium.headless,
       })
       : await playwright.chromium.launch();
